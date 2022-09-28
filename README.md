@@ -15,6 +15,8 @@
 
 ## Usage
 Anyone accessing this website can search for any city in the search bar and get the 5 day forecast and weather report. 
+![a86bc60f76b3fa1191528aea296798fd](https://user-images.githubusercontent.com/109758045/192699998-cdd4f0cb-4f13-41b6-ba51-71e63dbd3a9a.jpg)
+
 
 ## Credits
 - Github: https://github.com/DianasJourney/live-weather
