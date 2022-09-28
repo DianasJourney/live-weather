@@ -159,6 +159,9 @@ panel ul h4 {
 
 .panel ul li.city {
     margin: 1em 0;
+    background: -webkit-linear-gradient(#33ccff 0%, #ff99cc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .city {
