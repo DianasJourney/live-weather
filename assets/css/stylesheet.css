@@ -20,6 +20,12 @@ h1{
     font-weight: 400;
 }
 
+h4{
+    color:white;
+    font-size: 40px;
+}
+
+
 .weather-box {
     min-height: 100vh;
     background-position: center;
