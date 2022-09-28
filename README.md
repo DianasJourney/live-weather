@@ -20,7 +20,7 @@ Anyone accessing this website can search for any city in the search bar and get 
 
 ## Credits
 - Github: https://github.com/DianasJourney/live-weather
-- Github Page: 
+- Github Page: https://dianasjourney.github.io/live-weather/
 
 ## License
 @DianasJourney
