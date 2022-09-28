@@ -157,6 +157,10 @@ panel ul h4 {
     margin: 3em 0;
 }
 
+.panel ul li.city {
+    margin: 1em 0;
+}
+
 .city {
     display: block;
     cursor: pointer;

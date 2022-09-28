@@ -9,21 +9,29 @@ const cityName = document.querySelector('.name')
 const fiveDayForecast = document.querySelectorAll('.weatherInfo')
 const tempMain = document.querySelector('.temp')
 
-
-
 let cityList = JSON.parse(localStorage.getItem('citySearch')) || []
 
 const weatherSearch = text => {
-  const li = document.createElement('p')
+  const li = document.createElement('li')
   li.textContent = text
+  li.className = 'city'
   ul.appendChild(li)
 }
+
+document
+  .getElementById('searchedCities')
+  .addEventListener('click', function (e) {
+    if (e.target && e.target.matches('li.city')) {
+      inputCity = e.target.textContent
+      weatherInfo()
+    }
+  })
+
 for (let i = 0; i < cityList.length; i++) {
   weatherSearch(cityList[i])
 }
 
-
-let inputCity = 'toronto';
+let inputCity = 'toronto'
 weatherInfo()
 
 form.addEventListener('submit', event => {
@@ -40,7 +48,6 @@ form.addEventListener('submit', event => {
     /* removes text from search bar*/
     search.value = ''
   }
-  console.log(inputCity)
 })
 
 function weatherInfo () {
@@ -55,7 +62,6 @@ function weatherInfo () {
       fetch(url)
         .then(response => response.json())
         .then(data => {
-          let currentForecast = data.list[0]
           console.log(data)
           let dayCounter = 0
           // we will use this to divide later to get the average
@@ -64,28 +70,34 @@ function weatherInfo () {
           let dayHumidity = 0
           let dayWind = 0
           let index = 0
+          let prevDay = ''
 
           while (dayCounter < 5) {
-            let dataDate = data.list[index].dt_txt
-            let dataTime = dataDate.split(' ')[1]
+            let dataDate = data.list[index].dt_txt.split(' ')[0]
+            let dataTime = data.list[index].dt_txt.split(' ')[1]
 
-            if (dataTime != '00:00:00') {
-              dayTemps += data.list[index].main.temp
-              dayHumidity += data.list[index].main.humidity
-              dayWind += data.list[index].wind.speed
+            // if first index is midnight, get values and move onto next hour interval
+            if (index == 0 && dataTime == '00:00:00') {
+              dayTemps = data.list[index].main.temp
+              dayHumidity = data.list[index].main.humidity
+              dayWind = data.list[index].wind.speed
               dayIntervalCounter++
-            } else {
+              index++
+              continue
+            }
+
+            if (dataTime == '00:00:00') {
               let tempAverage = Math.trunc(dayTemps / dayIntervalCounter)
               let humidityAverage = Math.trunc(dayHumidity / dayIntervalCounter)
               let windAverage = (dayWind / dayIntervalCounter).toFixed(2)
+              let icon = data.list[index].weather[0].icon
 
               if (dayCounter == 0) {
-                temp.innerHTML = tempAverage + '°';
-                humid.innerHTML = humidityAverage + '%';
-                windKmH.innerHTML = windAverage + 'km/h';
-                tempMain.innerHTML = tempAverage + '°';
-                cityName.innerHTML = inputCity;
-
+                temp.innerHTML = tempAverage + '°'
+                humid.innerHTML = humidityAverage + '%'
+                windKmH.innerHTML = windAverage + 'km/h'
+                tempMain.innerHTML = tempAverage + '°'
+                cityName.innerHTML = inputCity
               }
               // create our data and append to day forecast
               let tempa = document.createElement('p')
@@ -95,15 +107,19 @@ function weatherInfo () {
               windS.textContent = `Humidity: ${humidityAverage}%`
 
               let humidityy = document.createElement('p')
-              humidityy.textContent = `Wind: ${windAverage} m/s`
+              humidityy.textContent = `Wind: ${windAverage} MPS`
+
+              let weatherIcon = document.createElement('img')
+              weatherIcon.src = `https://openweathermap.org/img/wn/${icon}@2x.png`
 
               fiveDayForecast[dayCounter].replaceChildren(
                 tempa,
                 windS,
-                humidityy
+                humidityy,
+                weatherIcon
               )
 
-              fiveDayForecast[dayCounter].prepend(`Day ${dayCounter + 1}`)
+              fiveDayForecast[dayCounter].prepend(prevDay)
 
               // it is a new day
               dayCounter++
@@ -113,11 +129,15 @@ function weatherInfo () {
               dayHumidity = data.list[index].main.humidity
               dayWind = data.list[index].wind.speed
               dayIntervalCounter = 1
+            } else {
+              dayTemps += data.list[index].main.temp
+              dayHumidity += data.list[index].main.humidity
+              dayWind += data.list[index].wind.speed
+              dayIntervalCounter++
+              prevDay = dataDate
             }
             index++
           }
-        
         })
     })
 }
-
