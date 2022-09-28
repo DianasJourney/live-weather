@@ -8,7 +8,7 @@ const windKmH = document.querySelector('.wind');
 const cityName = document.querySelector('.name');
 const fiveDayForecast = document.querySelectorAll('.weatherInfo');
 const tempMain = document.querySelector('.temp');
-const weathIcon = document.querySelector('#weatherricon');
+const weathIcon = document.querySelector('#weatherIcon1');
 
 let cityList = JSON.parse(localStorage.getItem('citySearch')) || []
 
@@ -98,6 +98,8 @@ function weatherInfo () {
                 windKmH.innerHTML = windAverage + 'km/h';
                 tempMain.innerHTML = tempAverage + '°';
                 cityName.innerHTML = inputCity;
+                weathIcon.src = `https://openweathermap.org/img/wn/${icon}@2x.png`
+
               
               }
               // create our data and append to day forecast
