@@ -95,7 +95,7 @@ function weatherInfo () {
               if (dayCounter == 0) {
                 temp.innerHTML = tempAverage + '°';
                 humid.innerHTML = humidityAverage + '%';
-                windKmH.innerHTML = windAverage + 'km/h';
+                windKmH.innerHTML = windAverage + 'MPS';
                 tempMain.innerHTML = tempAverage + '°';
                 cityName.innerHTML = inputCity;
                 weathIcon.src = `https://openweathermap.org/img/wn/${icon}@2x.png`
