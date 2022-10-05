@@ -59,7 +59,6 @@ function weatherInfo () {
   fetch(url2)
     .then(response => response.json())
     .then(currentdata => {
-      console.log(currentdata)
       fetch(url)
         .then(response => response.json())
         .then(data => {
