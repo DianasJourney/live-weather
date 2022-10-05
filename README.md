@@ -1,3 +1,5 @@
+## <p align="center">⛈️Weather Forecast⛈️</p>
+
 ## Overview
 - Created a weather application where users can see a 5 day forecast of the temperature, humidity and windspeed. 
 - Used HTML, CSS, Javascript and APIs
